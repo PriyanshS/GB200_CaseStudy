@@ -764,7 +764,7 @@
       COA
     </div>
     <div class="slide-counter">
-      <span id="slideNum">01</span><span style="opacity:0.35"> / 10</span>
+      <span id="slideNum">01</span><span style="opacity:0.35"> / 11</span>
     </div>
   </header>
 
@@ -783,6 +783,10 @@
             Tracing 45 years of computer architecture — from a 5 MHz sequential processor to a rack-scale AI
             supercomputer delivering 120 TFLOPS of FP8 compute.
           </p>
+          <div style="display:flex; align-items:center; gap:16px; margin-top:-8px">
+            <div style="width:28px; height:1px; background:var(--accent); opacity:0.6"></div>
+            <span style="font-family:var(--mono); font-size:13px; color:var(--muted); letter-spacing:0.06em">Priyansh Saxena &nbsp;&amp;&nbsp; Bria Jain</span>
+          </div>
           <div class="title-tags">
             <span class="tag">Von Neumann Bottleneck</span>
             <span class="tag">GPU Parallelism</span>
@@ -972,8 +976,8 @@
               <p>Multiply weight matrices against activation tensors during forward & backward pass.</p>
             </div>
             <div class="card card-blue">
-              <h3 style="font-size:13px; color: var(--blue); font-family: var(--mono)">HFT / Quant (2018+)</h3>
-              <p>Covariance matrix inversion, factor model scoring, real-time portfolio optimization.</p>
+              <h3 style="font-size:13px; color: var(--blue); font-family: var(--mono)">LLM Inference (2020+)</h3>
+              <p>Matrix-vector products across billion-parameter weight tensors for autoregressive token generation.</p>
             </div>
           </div>
         </div>
@@ -1425,7 +1429,7 @@
         <div class="slide-header">
           <div class="section-tag">§4 — Blackwell Innovations</div>
           <h1 class="slide-title">Architectural <span class="highlight">Innovations</span></h1>
-          <p class="slide-subtitle">Three breakthroughs that define Blackwell's dominance in HFT and AI inference.</p>
+          <p class="slide-subtitle">Three breakthroughs that define Blackwell's dominance in large-scale AI inference and training.</p>
         </div>
 
         <div class="feature-list">
@@ -1434,7 +1438,7 @@
             <div class="feature-desc">
               <strong>8 TB/s of memory bandwidth</strong> — 2.4× faster than GDDR6X. HBM (High Bandwidth Memory) stacks
               DRAM dies vertically on the same package as the GPU, connected by thousands of Through-Silicon Vias (TSV).
-              Critical for HFT: loading a 100 GB order book from memory takes <strong>12.5 microseconds</strong> instead
+              Critical for LLM inference: loading a 100 GB model's KV-cache from memory takes <strong>12.5 microseconds</strong> instead
               of milliseconds over PCIe.
             </div>
           </div>
@@ -1442,7 +1446,7 @@
             <div class="feature-label" style="color: var(--teal)">Decompression<br>Engine</div>
             <div class="feature-desc">
               <strong>800 GB/s dedicated decompression hardware</strong> — handles LZ4 and Deflate in silicon,
-              completely offloading the Grace CPU. Real-world financial data is often compressed 3–5×. Blackwell
+              completely offloading the Grace CPU. Real-world training datasets and model checkpoints are often compressed 3–5×. Blackwell
               decompresses a 10 GB compressed dataset in <strong>12.5 ms</strong> vs 500+ ms on CPU. This keeps the
               compute pipeline fed.
             </div>
@@ -1691,10 +1695,9 @@
           <div class="card card-accent">
             <div
               style="font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px">
-              HFT Relevance</div>
-            <p>In HFT, latency is measured in microseconds. By moving data at <strong style="color:var(--accent2)">10
-                TB/s</strong> using unified memory and on-chip decompression, the GB200 eliminates the data-starvation
-              bottleneck that has constrained quantitative trading strategies for a decade.</p>
+              AI Inference</div>
+            <p>Serving a 70B-parameter LLM demands moving hundreds of gigabytes of weights per generated token. By sustaining <strong style="color:var(--accent2)">10
+                TB/s</strong> of unified memory bandwidth with on-chip decompression, the GB200 eliminates the memory-wall bottleneck that has throttled large-model inference for years.</p>
           </div>
           <div class="card card-teal">
             <div
@@ -1725,6 +1728,42 @@
         </div>
       </section>
 
+      <!-- SLIDE 10: THANK YOU -->
+      <section class="slide" id="slide-10">
+        <div class="title-slide" style="align-items:center; text-align:center; padding: 40px 0 60px; gap: 28px">
+          <div class="title-eyebrow" style="justify-content:center">Architecture Journey — End</div>
+          <div class="main-title" style="text-align:center">
+            Thank <span class="line2">You</span>
+          </div>
+          <p class="title-meta" style="max-width:480px; font-size:15px; text-align:center; margin:0 auto">
+            From a 5 MHz sequential bus to a 130 TB/s rack-scale fabric — 45 years of closing the gap between compute and memory.
+          </p>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:8px">
+            <div style="font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:4px">Presented by</div>
+            <div style="display:flex; align-items:center; gap:20px">
+              <div style="background:var(--bg2); border:0.5px solid var(--border2); border-radius:10px; padding:14px 28px; text-align:center">
+                <div style="font-family:var(--display); font-size:18px; font-weight:700; color:var(--text)">Priyansh Saxena</div>
+              </div>
+              <div style="font-family:var(--mono); font-size:13px; color:var(--muted)">&amp;</div>
+              <div style="background:var(--bg2); border:0.5px solid var(--border2); border-radius:10px; padding:14px 28px; text-align:center">
+                <div style="font-family:var(--display); font-size:18px; font-weight:700; color:var(--text)">Bria Jain</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-row" style="justify-content:center; margin-top:8px">
+            <div class="stat-pill">
+              <span class="val" style="color:var(--muted); font-size:15px">8086</span>
+              <span class="lbl">Where it began</span>
+            </div>
+            <div style="display:flex; align-items:center; color:var(--muted); font-size:18px">→</div>
+            <div class="stat-pill" style="border-color: rgba(204,120,92,0.4)">
+              <span class="val">GB200</span>
+              <span class="lbl" style="color:var(--accent)">Where we are</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div><!-- slides-wrapper -->
   </main>
 
@@ -1748,7 +1787,7 @@
   </nav>
 
   <script>
-    const TOTAL = 10;
+    const TOTAL = 11;
     let current = 0;
 
     function buildDots() {
