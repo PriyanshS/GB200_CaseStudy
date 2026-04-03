@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GB200 — SVKM NMIMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080a;
+      --bg2: #0f1013;
+      --bg3: #161719;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.13);
+      --text: #eeeae4;
+      --muted: #888480;
+      --accent: #76b900; /* NVIDIA green */
+      --accent2: #9fd62e;
+      --dim: #4a4a4a;
+      --display: 'Syne', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE GRAIN ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+    }
+
+    /* ── GLOW BLOBS ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(118,185,0,0.09) 0%, transparent 70%);
+      top: -200px; right: -100px;
+    }
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(118,185,0,0.05) 0%, transparent 70%);
+      bottom: -100px; left: -80px;
+    }
+    .blob-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+      top: 40%; left: 50%; transform: translate(-50%, -50%);
+    }
+
+    /* ── SCAN LINE ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      border-bottom: 0.5px solid var(--border);
+      backdrop-filter: blur(20px);
+      background: rgba(7,8,10,0.7);
+      position: relative; z-index: 10;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .institution {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .institution-name {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .institution-sub {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* NVIDIA Logo SVG inline */
+    .nvidia-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.85;
+    }
+    .nvidia-logo svg {
+      height: 22px;
+      width: auto;
+    }
+    .nvidia-wordmark {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .course-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      border: 0.5px solid var(--border2);
+      border-radius: 4px;
+      padding: 5px 12px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: center;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* LEFT PANEL */
+    .hero-left {
+      padding: 80px 56px 80px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .eyebrow-line {
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    .hero-title .label {
+      display: block;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+    }
+    .hero-title .chip {
+      display: block;
+      font-size: clamp(72px, 10vw, 120px);
+      color: var(--text);
+      -webkit-text-stroke: 1px rgba(255,255,255,0.08);
+    }
+    .hero-title .chip .g {
+      color: var(--accent);
+      text-shadow: 0 0 60px rgba(118,185,0,0.35);
+    }
+    .hero-title .chip .b { color: var(--text); }
+    .hero-title .chip .num {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 420px;
+      font-weight: 300;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px 22px;
+      background: var(--bg2);
+      border: 0.5px solid var(--border2);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      max-width: 380px;
+    }
+    .meta-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .meta-key {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      min-width: 80px;
+    }
+    .meta-val {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: #07080a;
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 40px rgba(118,185,0,0.2);
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(118,185,0,0.35);
+    }
+    .btn-primary svg { width: 14px; height: 14px; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      border: 0.5px solid var(--border2);
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.3);
+      background: var(--bg3);
+    }
+
+    /* RIGHT PANEL */
+    .hero-right {
+      position: relative;
+      height: 100%;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: fadeUp 0.9s 0.4s ease both;
+    }
+
+    /* Arch diagram */
+    .arch-diagram {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .arch-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .arch-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Divider line */
+    .hero-divider {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0.5px;
+      background: linear-gradient(to bottom, transparent, var(--border2) 20%, var(--border2) 80%, transparent);
+    }
+
+    /* ── STAT BAR ── */
+    .stat-bar {
+      border-top: 0.5px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      animation: fadeUp 0.9s 0.6s ease both;
+    }
+    .stat-item {
+      padding: 24px 40px;
+      border-right: 0.5px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 380px; }
+      .hero-left { padding: 50px 32px; }
+      .stat-bar { grid-template-columns: 1fr 1fr; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .topbar { padding: 14px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="page">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="institution">
+      <span class="institution-name">SVKM's NMIMS</span>
+      <span class="institution-sub">School of Technology Management &amp; Engineering</span>
+    </div>
+
+    <!-- NVIDIA Logo (SVG eye + wordmark) -->
+    <div class="nvidia-logo">
+      <svg viewBox="0 0 120 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- NVIDIA eye icon -->
+        <path d="M18.2 6.8C12.4 6.8 7.4 9.6 4 14l4.2 3c2.4-3.2 6-5.2 10-5.2 7.6 0 13.8 6.2 13.8 13.8S25.8 39.4 18.2 39.4c-4 0-7.6-2-10-5.2L4 37.4c3.4 4.4 8.4 7.2 14.2 7.2C30 44.6 39.6 35 39.6 23.4S30 2.2 18.2 2.2V6.8z" fill="#76b900"/>
+        <path d="M18.2 10.6v6c4.8 0 8.6 3.8 8.6 8.6s-3.8 8.6-8.6 8.6v6c8 0 14.6-6.6 14.6-14.6S26.2 10.6 18.2 10.6z" fill="#76b900" opacity="0.7"/>
+        <path d="M18.2 16.2v4c2.6 0 4.8 2.2 4.8 4.8s-2.2 4.8-4.8 4.8v4c4.8 0 8.8-4 8.8-8.8s-4-8.8-8.8-8.8z" fill="#76b900" opacity="0.45"/>
+        <!-- NVIDIA text -->
+        <text x="46" y="31" font-family="Arial Black, sans-serif" font-size="15" font-weight="900" fill="#76b900" letter-spacing="1">NVIDIA</text>
+      </svg>
+    </div>
+
+
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        NVIDIA Blackwell Architecture
+      </div>
+
+      <h1 class="hero-title">
+        <span class="chip">
+          <span class="g">G</span><span class="b">B</span><span class="num">200</span>
+        </span>
+      </h1>
+
+      <p class="hero-desc">
+        From a 5&nbsp;MHz sequential bus to a rack-scale AI supercomputer. Tracing 45 years of computer architecture — the memory wall, parallel compute, and the dawn of unified silicon.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-row">
+          <span class="meta-key">Topic</span>
+          <span class="meta-val">From 8086 to 120 TeraFLOPs</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Domain</span>
+          <span class="meta-val">Computer Architecture · AI Infrastructure</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Presented by</span>
+          <span class="meta-val">Priyansh Saxena &amp; Bria Jain</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Institute</span>
+          <span class="meta-val">SVKM's NMIMS — STME</span>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="gb200_presentation.html" class="btn-primary">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 4l4 4-4 4"/>
+          </svg>
+          View Presentation
+        </a>
+        <span class="btn-ghost">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+            <circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/>
+          </svg>
+          ~15 min read
+        </span>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right">
+      <div class="hero-divider"></div>
+
+      <div class="arch-diagram">
+        <div class="arch-label">GB200 Superchip Architecture</div>
+        <svg viewBox="0 0 460 420" xmlns="http://www.w3.org/2000/svg" class="arch-svg">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+              <path d="M2 2L8 5L2 8" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round"/>
+            </marker>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <!-- animated dash for data flows -->
+            <style>
+              .flow { stroke-dasharray: 5 4; animation: dash 1.8s linear infinite; }
+              .flow2 { stroke-dasharray: 5 4; animation: dash 1.8s 0.6s linear infinite; }
+              .flow3 { stroke-dasharray: 5 4; animation: dash 1.8s 1.2s linear infinite; }
+              @keyframes dash { to { stroke-dashoffset: -18; } }
+            </style>
+          </defs>
+
+          <!-- ── GRACE CPU (left) ── -->
+          <rect x="18" y="80" width="130" height="260" rx="10"
+            fill="rgba(107,159,212,0.07)" stroke="rgba(107,159,212,0.45)" stroke-width="1"/>
+          <text x="83" y="102" text-anchor="middle" font-family="'Syne',sans-serif" font-size="12" font-weight="700" fill="#6b9fd4">GRACE CPU</text>
+          <text x="83" y="117" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.5)">72× Arm Neoverse V2</text>
+
+          <!-- CPU cores grid -->
+          <g fill="rgba(107,159,212,0.18)" stroke="rgba(107,159,212,0.35)" stroke-width="0.5">
+            <!-- row 1 -->
+            <rect x="28" y="128" width="22" height="16" rx="3"/>
+            <rect x="54" y="128" width="22" height="16" rx="3"/>
+            <rect x="80" y="128" width="22" height="16" rx="3"/>
+            <rect x="106" y="128" width="22" height="16" rx="3"/>
+            <!-- row 2 -->
+            <rect x="28" y="148" width="22" height="16" rx="3"/>
+            <rect x="54" y="148" width="22" height="16" rx="3"/>
+            <rect x="80" y="148" width="22" height="16" rx="3"/>
+            <rect x="106" y="148" width="22" height="16" rx="3"/>
+            <!-- row 3 -->
+            <rect x="28" y="168" width="22" height="16" rx="3"/>
+            <rect x="54" y="168" width="22" height="16" rx="3"/>
+            <rect x="80" y="168" width="22" height="16" rx="3"/>
+            <rect x="106" y="168" width="22" height="16" rx="3"/>
+          </g>
+          <text x="83" y="202" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(107,159,212,0.4)">CPU Cores</text>
+
+          <!-- LPDDR5X -->
+          <rect x="28" y="212" width="110" height="32" rx="5"
+            fill="rgba(107,159,212,0.1)" stroke="rgba(107,159,212,0.3)" stroke-width="0.5"/>
+          <text x="83" y="225" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.8)">LPDDR5X</text>
+          <text x="83" y="238" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(107,159,212,0.45)">480 GB/s</text>
+
+          <!-- L3 Cache -->
+          <rect x="28" y="254" width="110" height="28" rx="5"
+            fill="rgba(107,159,212,0.08)" stroke="rgba(107,159,212,0.25)" stroke-width="0.5"/>
+          <text x="83" y="272" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.6)">L3 Cache  117 MB</text>
+
+          <!-- PCIe 5.0 -->
+          <rect x="28" y="292" width="110" height="28" rx="5"
+            fill="rgba(107,159,212,0.06)" stroke="rgba(107,159,212,0.2)" stroke-width="0.5"/>
+          <text x="83" y="310" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.5)">PCIe 5.0 Gen</text>
+
+          <!-- ── NVLink-C2C BRIDGE (center) ── -->
+          <rect x="174" y="168" width="112" height="84" rx="8"
+            fill="rgba(212,160,74,0.1)" stroke="rgba(212,160,74,0.55)" stroke-width="1.2"/>
+          <text x="230" y="190" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#d4a04a">NVLink</text>
+          <text x="230" y="205" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#d4a04a">C2C</text>
+          <text x="230" y="222" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(212,160,74,0.6)">900 GB/s</text>
+          <text x="230" y="237" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(212,160,74,0.4)">bi-directional</text>
+          <!-- glow dot -->
+          <circle cx="230" cy="210" r="28" fill="none" stroke="rgba(212,160,74,0.12)" stroke-width="8" filter="url(#glow)"/>
+
+          <!-- flow lines CPU → C2C → GPU -->
+          <line x1="148" y1="210" x2="174" y2="210" stroke="rgba(212,160,74,0.7)" stroke-width="1.5" marker-end="url(#arr)" class="flow"/>
+          <line x1="148" y1="220" x2="174" y2="220" stroke="rgba(212,160,74,0.5)" stroke-width="1.5" marker-start="url(#arr)" class="flow2"/>
+          <line x1="286" y1="210" x2="312" y2="210" stroke="rgba(212,160,74,0.7)" stroke-width="1.5" marker-end="url(#arr)" class="flow"/>
+          <line x1="286" y1="220" x2="312" y2="220" stroke="rgba(212,160,74,0.5)" stroke-width="1.5" marker-start="url(#arr)" class="flow2"/>
+
+          <!-- ── BLACKWELL GPU (right) ── -->
+          <rect x="312" y="28" width="130" height="364" rx="10"
+            fill="rgba(118,185,0,0.06)" stroke="rgba(118,185,0,0.5)" stroke-width="1.2"/>
+          <text x="377" y="52" text-anchor="middle" font-family="'Syne',sans-serif" font-size="12" font-weight="700" fill="#76b900">BLACKWELL B200</text>
+          <text x="377" y="67" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(118,185,0,0.5)">208B transistors</text>
+
+          <!-- SM blocks grid -->
+          <g fill="rgba(118,185,0,0.15)" stroke="rgba(118,185,0,0.35)" stroke-width="0.5">
+            <rect x="322" y="78" width="24" height="16" rx="2"/><rect x="350" y="78" width="24" height="16" rx="2"/>
+            <rect x="378" y="78" width="24" height="16" rx="2"/><rect x="406" y="78" width="24" height="16" rx="2"/>
+            <rect x="322" y="98" width="24" height="16" rx="2"/><rect x="350" y="98" width="24" height="16" rx="2"/>
+            <rect x="378" y="98" width="24" height="16" rx="2"/><rect x="406" y="98" width="24" height="16" rx="2"/>
+            <rect x="322" y="118" width="24" height="16" rx="2"/><rect x="350" y="118" width="24" height="16" rx="2"/>
+            <rect x="378" y="118" width="24" height="16" rx="2"/><rect x="406" y="118" width="24" height="16" rx="2"/>
+            <rect x="322" y="138" width="24" height="16" rx="2"/><rect x="350" y="138" width="24" height="16" rx="2"/>
+            <rect x="378" y="138" width="24" height="16" rx="2"/><rect x="406" y="138" width="24" height="16" rx="2"/>
+          </g>
+          <text x="377" y="172" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(118,185,0,0.4)">132× Streaming Multiprocessors</text>
+
+          <!-- Tensor Core block -->
+          <rect x="322" y="182" width="110" height="36" rx="5"
+            fill="rgba(118,185,0,0.12)" stroke="rgba(118,185,0,0.4)" stroke-width="0.8"/>
+          <text x="377" y="197" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(118,185,0,0.9)">5th Gen Tensor Cores</text>
+          <text x="377" y="211" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(118,185,0,0.5)">FP4 · FP8 · FP16 · TF32</text>
+
+          <!-- HBM3e stacks -->
+          <rect x="322" y="228" width="50" height="60" rx="5"
+            fill="rgba(155,135,212,0.1)" stroke="rgba(155,135,212,0.4)" stroke-width="0.8"/>
+          <text x="347" y="252" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.9)">HBM3e</text>
+          <text x="347" y="265" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">96 GB</text>
+          <text x="347" y="278" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(155,135,212,0.4)">Stack ×1</text>
+
+          <rect x="380" y="228" width="50" height="60" rx="5"
+            fill="rgba(155,135,212,0.1)" stroke="rgba(155,135,212,0.4)" stroke-width="0.8"/>
+          <text x="405" y="252" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.9)">HBM3e</text>
+          <text x="405" y="265" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">96 GB</text>
+          <text x="405" y="278" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(155,135,212,0.4)">Stack ×2</text>
+
+          <!-- HBM bandwidth arrow -->
+          <line x1="377" y1="296" x2="377" y2="320" stroke="rgba(155,135,212,0.5)" stroke-width="1" marker-end="url(#arr)" class="flow3"/>
+          <text x="377" y="334" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">8 TB/s BW</text>
+
+          <!-- Decompression Engine -->
+          <rect x="322" y="348" width="110" height="28" rx="5"
+            fill="rgba(79,184,160,0.08)" stroke="rgba(79,184,160,0.3)" stroke-width="0.8"/>
+          <text x="377" y="360" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(79,184,160,0.8)">Decompress Engine</text>
+          <text x="377" y="372" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(79,184,160,0.45)">800 GB/s · LZ4 / Deflate</text>
+
+          <!-- ── NVLink Switch (bottom center) ── -->
+          <rect x="148" y="360" width="156" height="36" rx="7"
+            fill="rgba(212,160,74,0.08)" stroke="rgba(212,160,74,0.4)" stroke-width="1"/>
+          <text x="226" y="376" text-anchor="middle" font-family="'Syne',sans-serif" font-size="10" font-weight="700" fill="#d4a04a">NVLink Switch</text>
+          <text x="226" y="389" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(212,160,74,0.5)">1.8 TB/s · rack-scale fabric</text>
+
+          <!-- NVLink Switch connectors -->
+          <line x1="148" y1="378" x2="18" y2="330" stroke="rgba(212,160,74,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="304" y1="378" x2="442" y2="330" stroke="rgba(212,160,74,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+
+          <!-- Legend -->
+          <g>
+            <rect x="18" y="388" width="8" height="8" rx="2" fill="rgba(107,159,212,0.5)"/>
+            <text x="30" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">CPU</text>
+            <rect x="70" y="388" width="8" height="8" rx="2" fill="rgba(212,160,74,0.5)"/>
+            <text x="82" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">Interconnect</text>
+            <rect x="162" y="388" width="8" height="8" rx="2" fill="rgba(118,185,0,0.5)"/>
+            <text x="174" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">GPU</text>
+            <rect x="206" y="388" width="8" height="8" rx="2" fill="rgba(155,135,212,0.5)"/>
+            <text x="218" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">HBM3e</text>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- STAT BAR -->
+  <div class="stat-bar">
+    <div class="stat-item">
+      <span class="stat-num">120</span>
+      <span class="stat-lbl">TFLOPS FP8</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">192 GB</span>
+      <span class="stat-lbl">HBM3e Memory</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">10 TB/s</span>
+      <span class="stat-lbl">Memory Bandwidth</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2024</span>
+      <span class="stat-lbl">Blackwell Gen</span>
+    </div>
+  </div>
+
+</div>
+
+
+
+</body>
+</html>
