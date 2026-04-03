@@ -491,7 +491,7 @@
 
       <div class="arch-diagram">
         <div class="arch-label">GB200 Superchip Architecture</div>
-        <svg viewBox="0 0 460 420" xmlns="http://www.w3.org/2000/svg" class="arch-svg">
+        <svg viewBox="0 0 460 540" xmlns="http://www.w3.org/2000/svg" class="arch-svg">
           <defs>
             <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
               <path d="M2 2L8 5L2 8" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round"/>
@@ -500,141 +500,132 @@
               <feGaussianBlur stdDeviation="3" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
-            <!-- animated dash for data flows -->
             <style>
-              .flow { stroke-dasharray: 5 4; animation: dash 1.8s linear infinite; }
+              .flow  { stroke-dasharray: 5 4; animation: dash 1.8s linear infinite; }
               .flow2 { stroke-dasharray: 5 4; animation: dash 1.8s 0.6s linear infinite; }
               .flow3 { stroke-dasharray: 5 4; animation: dash 1.8s 1.2s linear infinite; }
               @keyframes dash { to { stroke-dashoffset: -18; } }
             </style>
           </defs>
 
-          <!-- ── GRACE CPU (left) ── -->
-          <rect x="18" y="80" width="130" height="260" rx="10"
+          <!-- ── GRACE CPU (left) y:20 → y:400 ── -->
+          <rect x="14" y="20" width="132" height="380" rx="10"
             fill="rgba(107,159,212,0.07)" stroke="rgba(107,159,212,0.45)" stroke-width="1"/>
-          <text x="83" y="102" text-anchor="middle" font-family="'Syne',sans-serif" font-size="12" font-weight="700" fill="#6b9fd4">GRACE CPU</text>
-          <text x="83" y="117" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.5)">72× Arm Neoverse V2</text>
+          <text x="80" y="42" text-anchor="middle" font-family="'Syne',sans-serif" font-size="12" font-weight="700" fill="#6b9fd4">GRACE CPU</text>
+          <text x="80" y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.5)">72× Arm Neoverse V2</text>
 
           <!-- CPU cores grid -->
           <g fill="rgba(107,159,212,0.18)" stroke="rgba(107,159,212,0.35)" stroke-width="0.5">
-            <!-- row 1 -->
-            <rect x="28" y="128" width="22" height="16" rx="3"/>
-            <rect x="54" y="128" width="22" height="16" rx="3"/>
-            <rect x="80" y="128" width="22" height="16" rx="3"/>
-            <rect x="106" y="128" width="22" height="16" rx="3"/>
-            <!-- row 2 -->
-            <rect x="28" y="148" width="22" height="16" rx="3"/>
-            <rect x="54" y="148" width="22" height="16" rx="3"/>
-            <rect x="80" y="148" width="22" height="16" rx="3"/>
-            <rect x="106" y="148" width="22" height="16" rx="3"/>
-            <!-- row 3 -->
-            <rect x="28" y="168" width="22" height="16" rx="3"/>
-            <rect x="54" y="168" width="22" height="16" rx="3"/>
-            <rect x="80" y="168" width="22" height="16" rx="3"/>
-            <rect x="106" y="168" width="22" height="16" rx="3"/>
+            <rect x="24" y="70" width="22" height="16" rx="3"/><rect x="50" y="70" width="22" height="16" rx="3"/>
+            <rect x="76" y="70" width="22" height="16" rx="3"/><rect x="102" y="70" width="22" height="16" rx="3"/>
+            <rect x="24" y="90" width="22" height="16" rx="3"/><rect x="50" y="90" width="22" height="16" rx="3"/>
+            <rect x="76" y="90" width="22" height="16" rx="3"/><rect x="102" y="90" width="22" height="16" rx="3"/>
+            <rect x="24" y="110" width="22" height="16" rx="3"/><rect x="50" y="110" width="22" height="16" rx="3"/>
+            <rect x="76" y="110" width="22" height="16" rx="3"/><rect x="102" y="110" width="22" height="16" rx="3"/>
           </g>
-          <text x="83" y="202" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(107,159,212,0.4)">CPU Cores</text>
+          <text x="80" y="144" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(107,159,212,0.4)">CPU Cores</text>
 
           <!-- LPDDR5X -->
-          <rect x="28" y="212" width="110" height="32" rx="5"
+          <rect x="24" y="154" width="112" height="34" rx="5"
             fill="rgba(107,159,212,0.1)" stroke="rgba(107,159,212,0.3)" stroke-width="0.5"/>
-          <text x="83" y="225" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.8)">LPDDR5X</text>
-          <text x="83" y="238" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(107,159,212,0.45)">480 GB/s</text>
+          <text x="80" y="168" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.8)">LPDDR5X</text>
+          <text x="80" y="181" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(107,159,212,0.45)">480 GB/s</text>
 
           <!-- L3 Cache -->
-          <rect x="28" y="254" width="110" height="28" rx="5"
+          <rect x="24" y="198" width="112" height="30" rx="5"
             fill="rgba(107,159,212,0.08)" stroke="rgba(107,159,212,0.25)" stroke-width="0.5"/>
-          <text x="83" y="272" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.6)">L3 Cache  117 MB</text>
+          <text x="80" y="218" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.6)">L3 Cache  117 MB</text>
 
           <!-- PCIe 5.0 -->
-          <rect x="28" y="292" width="110" height="28" rx="5"
+          <rect x="24" y="238" width="112" height="30" rx="5"
             fill="rgba(107,159,212,0.06)" stroke="rgba(107,159,212,0.2)" stroke-width="0.5"/>
-          <text x="83" y="310" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.5)">PCIe 5.0 Gen</text>
+          <text x="80" y="258" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(107,159,212,0.5)">PCIe 5.0 Gen</text>
 
-          <!-- ── NVLink-C2C BRIDGE (center) ── -->
-          <rect x="174" y="168" width="112" height="84" rx="8"
+          <!-- ── NVLink-C2C BRIDGE (center) vertically centred on y=200 ── -->
+          <rect x="170" y="158" width="116" height="88" rx="8"
             fill="rgba(212,160,74,0.1)" stroke="rgba(212,160,74,0.55)" stroke-width="1.2"/>
-          <text x="230" y="190" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#d4a04a">NVLink</text>
-          <text x="230" y="205" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#d4a04a">C2C</text>
-          <text x="230" y="222" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(212,160,74,0.6)">900 GB/s</text>
-          <text x="230" y="237" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(212,160,74,0.4)">bi-directional</text>
-          <!-- glow dot -->
-          <circle cx="230" cy="210" r="28" fill="none" stroke="rgba(212,160,74,0.12)" stroke-width="8" filter="url(#glow)"/>
+          <text x="228" y="181" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#d4a04a">NVLink</text>
+          <text x="228" y="196" text-anchor="middle" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#d4a04a">C2C</text>
+          <text x="228" y="214" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(212,160,74,0.6)">900 GB/s</text>
+          <text x="228" y="229" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(212,160,74,0.4)">bi-directional</text>
+          <circle cx="228" cy="202" r="28" fill="none" stroke="rgba(212,160,74,0.1)" stroke-width="8" filter="url(#glow)"/>
 
-          <!-- flow lines CPU → C2C → GPU -->
-          <line x1="148" y1="210" x2="174" y2="210" stroke="rgba(212,160,74,0.7)" stroke-width="1.5" marker-end="url(#arr)" class="flow"/>
-          <line x1="148" y1="220" x2="174" y2="220" stroke="rgba(212,160,74,0.5)" stroke-width="1.5" marker-start="url(#arr)" class="flow2"/>
-          <line x1="286" y1="210" x2="312" y2="210" stroke="rgba(212,160,74,0.7)" stroke-width="1.5" marker-end="url(#arr)" class="flow"/>
-          <line x1="286" y1="220" x2="312" y2="220" stroke="rgba(212,160,74,0.5)" stroke-width="1.5" marker-start="url(#arr)" class="flow2"/>
+          <!-- flow lines CPU ↔ C2C ↔ GPU (at y=200/210) -->
+          <line x1="146" y1="200" x2="170" y2="200" stroke="rgba(212,160,74,0.7)" stroke-width="1.5" marker-end="url(#arr)" class="flow"/>
+          <line x1="146" y1="212" x2="170" y2="212" stroke="rgba(212,160,74,0.5)" stroke-width="1.5" marker-start="url(#arr)" class="flow2"/>
+          <line x1="286" y1="200" x2="312" y2="200" stroke="rgba(212,160,74,0.7)" stroke-width="1.5" marker-end="url(#arr)" class="flow"/>
+          <line x1="286" y1="212" x2="312" y2="212" stroke="rgba(212,160,74,0.5)" stroke-width="1.5" marker-start="url(#arr)" class="flow2"/>
 
-          <!-- ── BLACKWELL GPU (right) ── -->
-          <rect x="312" y="28" width="130" height="364" rx="10"
+          <!-- ── BLACKWELL GPU (right) y:20 → y:400 ── -->
+          <rect x="312" y="20" width="134" height="380" rx="10"
             fill="rgba(118,185,0,0.06)" stroke="rgba(118,185,0,0.5)" stroke-width="1.2"/>
-          <text x="377" y="52" text-anchor="middle" font-family="'Syne',sans-serif" font-size="12" font-weight="700" fill="#76b900">BLACKWELL B200</text>
-          <text x="377" y="67" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(118,185,0,0.5)">208B transistors</text>
+          <text x="379" y="42" text-anchor="middle" font-family="'Syne',sans-serif" font-size="12" font-weight="700" fill="#76b900">BLACKWELL B200</text>
+          <text x="379" y="57" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(118,185,0,0.5)">208B transistors</text>
 
           <!-- SM blocks grid -->
           <g fill="rgba(118,185,0,0.15)" stroke="rgba(118,185,0,0.35)" stroke-width="0.5">
-            <rect x="322" y="78" width="24" height="16" rx="2"/><rect x="350" y="78" width="24" height="16" rx="2"/>
-            <rect x="378" y="78" width="24" height="16" rx="2"/><rect x="406" y="78" width="24" height="16" rx="2"/>
-            <rect x="322" y="98" width="24" height="16" rx="2"/><rect x="350" y="98" width="24" height="16" rx="2"/>
-            <rect x="378" y="98" width="24" height="16" rx="2"/><rect x="406" y="98" width="24" height="16" rx="2"/>
-            <rect x="322" y="118" width="24" height="16" rx="2"/><rect x="350" y="118" width="24" height="16" rx="2"/>
-            <rect x="378" y="118" width="24" height="16" rx="2"/><rect x="406" y="118" width="24" height="16" rx="2"/>
-            <rect x="322" y="138" width="24" height="16" rx="2"/><rect x="350" y="138" width="24" height="16" rx="2"/>
-            <rect x="378" y="138" width="24" height="16" rx="2"/><rect x="406" y="138" width="24" height="16" rx="2"/>
+            <rect x="322" y="68" width="24" height="15" rx="2"/><rect x="350" y="68" width="24" height="15" rx="2"/>
+            <rect x="378" y="68" width="24" height="15" rx="2"/><rect x="406" y="68" width="24" height="15" rx="2"/>
+            <rect x="322" y="87" width="24" height="15" rx="2"/><rect x="350" y="87" width="24" height="15" rx="2"/>
+            <rect x="378" y="87" width="24" height="15" rx="2"/><rect x="406" y="87" width="24" height="15" rx="2"/>
+            <rect x="322" y="106" width="24" height="15" rx="2"/><rect x="350" y="106" width="24" height="15" rx="2"/>
+            <rect x="378" y="106" width="24" height="15" rx="2"/><rect x="406" y="106" width="24" height="15" rx="2"/>
+            <rect x="322" y="125" width="24" height="15" rx="2"/><rect x="350" y="125" width="24" height="15" rx="2"/>
+            <rect x="378" y="125" width="24" height="15" rx="2"/><rect x="406" y="125" width="24" height="15" rx="2"/>
           </g>
-          <text x="377" y="172" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(118,185,0,0.4)">132× Streaming Multiprocessors</text>
+          <text x="379" y="158" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(118,185,0,0.4)">132× Streaming Multiprocessors</text>
 
           <!-- Tensor Core block -->
-          <rect x="322" y="182" width="110" height="36" rx="5"
+          <rect x="322" y="168" width="114" height="36" rx="5"
             fill="rgba(118,185,0,0.12)" stroke="rgba(118,185,0,0.4)" stroke-width="0.8"/>
-          <text x="377" y="197" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(118,185,0,0.9)">5th Gen Tensor Cores</text>
-          <text x="377" y="211" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(118,185,0,0.5)">FP4 · FP8 · FP16 · TF32</text>
+          <text x="379" y="183" text-anchor="middle" font-family="'DM Mono',monospace" font-size="9" fill="rgba(118,185,0,0.9)">5th Gen Tensor Cores</text>
+          <text x="379" y="197" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(118,185,0,0.5)">FP4 · FP8 · FP16 · TF32</text>
 
           <!-- HBM3e stacks -->
-          <rect x="322" y="228" width="50" height="60" rx="5"
+          <rect x="322" y="216" width="52" height="64" rx="5"
             fill="rgba(155,135,212,0.1)" stroke="rgba(155,135,212,0.4)" stroke-width="0.8"/>
-          <text x="347" y="252" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.9)">HBM3e</text>
-          <text x="347" y="265" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">96 GB</text>
-          <text x="347" y="278" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(155,135,212,0.4)">Stack ×1</text>
+          <text x="348" y="239" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.9)">HBM3e</text>
+          <text x="348" y="252" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">96 GB</text>
+          <text x="348" y="265" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(155,135,212,0.4)">Stack ×1</text>
 
-          <rect x="380" y="228" width="50" height="60" rx="5"
+          <rect x="382" y="216" width="52" height="64" rx="5"
             fill="rgba(155,135,212,0.1)" stroke="rgba(155,135,212,0.4)" stroke-width="0.8"/>
-          <text x="405" y="252" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.9)">HBM3e</text>
-          <text x="405" y="265" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">96 GB</text>
-          <text x="405" y="278" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(155,135,212,0.4)">Stack ×2</text>
+          <text x="408" y="239" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.9)">HBM3e</text>
+          <text x="408" y="252" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">96 GB</text>
+          <text x="408" y="265" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(155,135,212,0.4)">Stack ×2</text>
 
-          <!-- HBM bandwidth arrow -->
-          <line x1="377" y1="296" x2="377" y2="320" stroke="rgba(155,135,212,0.5)" stroke-width="1" marker-end="url(#arr)" class="flow3"/>
-          <text x="377" y="334" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">8 TB/s BW</text>
+          <!-- HBM bandwidth label -->
+          <line x1="379" y1="288" x2="379" y2="308" stroke="rgba(155,135,212,0.5)" stroke-width="1" marker-end="url(#arr)" class="flow3"/>
+          <text x="379" y="322" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(155,135,212,0.6)">8 TB/s BW</text>
 
           <!-- Decompression Engine -->
-          <rect x="322" y="348" width="110" height="28" rx="5"
+          <rect x="322" y="334" width="114" height="30" rx="5"
             fill="rgba(79,184,160,0.08)" stroke="rgba(79,184,160,0.3)" stroke-width="0.8"/>
-          <text x="377" y="360" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(79,184,160,0.8)">Decompress Engine</text>
-          <text x="377" y="372" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(79,184,160,0.45)">800 GB/s · LZ4 / Deflate</text>
+          <text x="379" y="347" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(79,184,160,0.8)">Decompress Engine</text>
+          <text x="379" y="359" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(79,184,160,0.45)">800 GB/s · LZ4 / Deflate</text>
 
-          <!-- ── NVLink Switch (bottom center) ── -->
-          <rect x="148" y="360" width="156" height="36" rx="7"
+          <!-- ── NVLink Switch — below both panels, y:428 ── -->
+          <rect x="100" y="428" width="256" height="40" rx="7"
             fill="rgba(212,160,74,0.08)" stroke="rgba(212,160,74,0.4)" stroke-width="1"/>
-          <text x="226" y="376" text-anchor="middle" font-family="'Syne',sans-serif" font-size="10" font-weight="700" fill="#d4a04a">NVLink Switch</text>
-          <text x="226" y="389" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(212,160,74,0.5)">1.8 TB/s · rack-scale fabric</text>
+          <text x="228" y="445" text-anchor="middle" font-family="'Syne',sans-serif" font-size="10" font-weight="700" fill="#d4a04a">NVLink Switch</text>
+          <text x="228" y="460" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="rgba(212,160,74,0.5)">1.8 TB/s · rack-scale fabric</text>
 
-          <!-- NVLink Switch connectors -->
-          <line x1="148" y1="378" x2="18" y2="330" stroke="rgba(212,160,74,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
-          <line x1="304" y1="378" x2="442" y2="330" stroke="rgba(212,160,74,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- connectors: CPU bottom → Switch, GPU bottom → Switch -->
+          <line x1="80"  y1="400" x2="80"  y2="428" stroke="rgba(212,160,74,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="379" y1="400" x2="379" y2="428" stroke="rgba(212,160,74,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
 
-          <!-- Legend -->
+          <!-- ── Legend — y:500 ── -->
           <g>
-            <rect x="18" y="388" width="8" height="8" rx="2" fill="rgba(107,159,212,0.5)"/>
-            <text x="30" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">CPU</text>
-            <rect x="70" y="388" width="8" height="8" rx="2" fill="rgba(212,160,74,0.5)"/>
-            <text x="82" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">Interconnect</text>
-            <rect x="162" y="388" width="8" height="8" rx="2" fill="rgba(118,185,0,0.5)"/>
-            <text x="174" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">GPU</text>
-            <rect x="206" y="388" width="8" height="8" rx="2" fill="rgba(155,135,212,0.5)"/>
-            <text x="218" y="396" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)">HBM3e</text>
+            <rect x="14"  y="498" width="8" height="8" rx="2" fill="rgba(107,159,212,0.6)"/>
+            <text x="26"  y="506" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.35)">CPU</text>
+            <rect x="68"  y="498" width="8" height="8" rx="2" fill="rgba(212,160,74,0.6)"/>
+            <text x="80"  y="506" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.35)">Interconnect</text>
+            <rect x="162" y="498" width="8" height="8" rx="2" fill="rgba(118,185,0,0.6)"/>
+            <text x="174" y="506" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.35)">GPU</text>
+            <rect x="210" y="498" width="8" height="8" rx="2" fill="rgba(155,135,212,0.6)"/>
+            <text x="222" y="506" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.35)">HBM3e</text>
+            <rect x="268" y="498" width="8" height="8" rx="2" fill="rgba(79,184,160,0.6)"/>
+            <text x="280" y="506" font-family="'DM Mono',monospace" font-size="8" fill="rgba(255,255,255,0.35)">Decomp</text>
           </g>
         </svg>
       </div>
